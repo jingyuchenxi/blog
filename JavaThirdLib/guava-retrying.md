@@ -58,8 +58,40 @@ public class GuavaRetry {
 ```
 
 ## 源码分析
-### 源码结构
-![]
+### 包目录结构
+guava-retrying包目录结构如下：主要包含7个接口类，和
+![源码结构](https://github.com/jingyuchenxi/blog/blob/master/resource/hie.png?raw=true)
+
+### 核心类
+* Retryer
+
+* RetryerBuilder
+
+### 功能接口
+* Attempt
+    
+* AttemptTimeLimiter
+
+* BlockStrategy
+
+* StopStrategy
+
+* WaitStrategy
+
+* RetryListener
+
+### 功能实现类
+* AttemptTimeLimiters
+
+* BlockStrategies
+
+* RetryException
+
+* StopStrategies
+
+* WaitStrategies
+
+
 ```
 /**
  * Executes the given callable. If the rejection predicate
