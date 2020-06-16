@@ -70,25 +70,25 @@ guava-retrying包目录结构如下：主要包含2个核心类、7个功能接�
 ### 相关类和接口
 
 ###### 核心类
-* Retryer 重试的核心类，类中的call方法实现了整个重试过程。
+* Retryer 重试的核心类，类中的 **call** 方法实现了整个重试过程。
 
-* RetryerBuilder 主要用来创建一个Retryer对象，也就是说Retryer对象不是通过自身的构造方法来创建的。
+* RetryerBuilder 主要用来创建一个 **Retryer** 对象，也就是说 **Retryer** 对象不是通过自身的构造方法来创建的。
 
 ###### 功能接口
-* Attempt 重试。该接口封装每次 **Retryer.call** 的执行结果，并提供一些判断和获取返回值的方法，目前只有ResultAttempt和ExceptionAttempt两个实现类，分别封装call方法执行成功和执行异常时的返回值。
+* Attempt 重试。该接口封装每次 **Retryer.call** 的执行结果，并提供一些判断和获取返回值的方法，目前只有 **ResultAttempt** 和 **ExceptionAttempt** 两个实现类，分别封装 **call** 方法执行成功和执行异常时的返回值。
     
 * AttemptTimeLimiter 重试时间控制器。该接口用来控制业务方法的执行过程，如设置业务方法执行的超时时间。当执行时间超过设置的域值，方法就会中断并跑出异常。
 
-* BlockStrategy
+* StopStrategy 重试停止接口。
 
-* StopStrategy
+* WaitStrategy 重试等待(延时)接口。该接口定义定义两次重试之间的延时。
 
-* WaitStrategy 
+* BlockStrategy 重试阻塞接口。该接口通过自定义阻塞策略，在两次重试过程之间执行阻塞等待逻辑。
 
 * RetryListener 用来通知调用方每次重试执行的结果。
 
 ###### 功能实现类
-* AttemptTimeLimiters
+* AttemptTimeLimiters 重试时间控制器实现类，主要实现了两类控制器 **NoAttemptTimeLimit**、**FixedAttemptTimeLimit**，**NoAttemptTimeLimit** 没有时间控制逻辑，内部直接调用 **Callable** 的 **call** 方法，**FixedAttemptTimeLimit** 则是通过 **guava** 的 **TimeLimiter** 来控制 **call** 方法的执行时间。
 
 * BlockStrategies
 
