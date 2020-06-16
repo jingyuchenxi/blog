@@ -1,5 +1,4 @@
 guava-retrying
-[TOC]
 ## 简介
 **guava-retrying**作为Guava的一个扩展库，可以为任意函数调用创建可配置的重试策略。常用于RPC远程服务调用过程中。
 ## 使用
@@ -56,11 +55,15 @@ public class GuavaRetry {
     }
 }
 ```
+简单解释一下上述示例代码的执行过程：
+为了测试方便，首先我们定义了**RetryRespVo**类，该类作为后续我们主流程Retryer.call()方法的返回值。
+我们在main方法中通过 RetryerBuilder.newBuilder方法构造 RetryerBuilder 对象，并根据实际需要设置一系列重试谓词(下文源码分析的时候会详细介绍)，以及一系列停止重试、策略
 
 ## 源码分析
 ### 包目录结构
 guava-retrying包目录结构如下：主要包含7个接口类，和
-![源码结构](https://github.com/jingyuchenxi/blog/blob/master/resource/hie.png?raw=true)
+
+<img src="https://github.com/jingyuchenxi/blog/blob/master/resource/hie.png?raw=true" width="230px" height="250px"/>
 
 ### 核心类
 * Retryer
