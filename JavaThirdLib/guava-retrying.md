@@ -11,6 +11,7 @@ guava-retrying
     <version>2.0.0</version>
 </dependency>
 ```
+[guava-retrying依赖查询](https://mvnrepository.com/artifact/com.github.rholder/guava-retrying)
 ### 示例代码
 ***RetryRespVo.java***
 ```java
@@ -55,9 +56,10 @@ public class GuavaRetry {
     }
 }
 ```
-简单解释一下上述示例代码的执行过程：
-为了测试方便，首先我们定义了**RetryRespVo**类，该类作为后续我们主流程Retryer.call()方法的返回值。
-我们在main方法中通过 RetryerBuilder.newBuilder方法构造 RetryerBuilder 对象，并根据实际需要设置一系列重试谓词(下文源码分析的时候会详细介绍)，以及一系列停止重试、策略
+解释一下上述示例代码：
+1. 定义 **RetryRespVo** 类，该类作为后续主流程 **Retryer.call()** 方法的返回值。
+2. 在main方法中通过 **RetryerBuilder.newBuilder** 方法构造 **RetryerBuilder** 对象，并根据实际需要自定义多种重试判断谓词(下文源码分析的时候会详细介绍)，以及每次重试前需要执行的终止策略、延时策略、阻塞策略，也可以通过实现 **RetryListener** 接口，监听每次执行的结果，通过 **RetryerBuilder** 的 **build** 方法创建 **Retryer** 对象。
+3. 调用 **Retryer.call** 方法，执行自己的方法。
 
 ## 源码分析
 ### 包目录结构
@@ -93,7 +95,6 @@ guava-retrying包目录结构如下：主要包含7个接口类，和
 * StopStrategies
 
 * WaitStrategies
-
 
 ```
 /**
