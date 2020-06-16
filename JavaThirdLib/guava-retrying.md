@@ -75,17 +75,17 @@ guava-retrying包目录结构如下：主要包含2个核心类、7个功能接�
 * RetryerBuilder 主要用来创建一个Retryer对象，也就是说Retryer对象不是通过自身的构造方法来创建的。
 
 ###### 功能接口
-* Attempt 对Retryer.call方法的
+* Attempt 重试。该接口封装每次 **Retryer.call** 的执行结果，并提供一些判断和获取返回值的方法，目前只有ResultAttempt和ExceptionAttempt两个实现类，分别封装call方法执行成功和执行异常时的返回值。
     
-* AttemptTimeLimiter
+* AttemptTimeLimiter 重试时间控制器。该接口用来控制业务方法的执行过程，如设置业务方法执行的超时时间。当执行时间超过设置的域值，方法就会中断并跑出异常。
 
 * BlockStrategy
 
 * StopStrategy
 
-* WaitStrategy
+* WaitStrategy 
 
-* RetryListener
+* RetryListener 用来通知调用方每次重试执行的结果。
 
 ###### 功能实现类
 * AttemptTimeLimiters
