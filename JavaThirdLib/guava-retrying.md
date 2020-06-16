@@ -56,24 +56,26 @@ public class GuavaRetry {
     }
 }
 ```
-解释一下上述示例代码：
-1. 定义 **RetryRespVo** 类，该类作为后续主流程 **Retryer.call()** 方法的返回值。
+解释一下上面的代码：
+1. 定义 **RetryRespVo** 类，该类作为后续主流程 **Retryer.call()** 方法的返回值，根据业务需要自己定义即可。
 2. 在main方法中通过 **RetryerBuilder.newBuilder** 方法构造 **RetryerBuilder** 对象，并根据实际需要自定义多种重试判断谓词(下文源码分析的时候会详细介绍)，以及每次重试前需要执行的终止策略、延时策略、阻塞策略，也可以通过实现 **RetryListener** 接口，监听每次执行的结果，通过 **RetryerBuilder** 的 **build** 方法创建 **Retryer** 对象。
-3. 调用 **Retryer.call** 方法，执行自己的方法。
+3. 调用 **Retryer.call** 方法，此时call方法的内部，就会按照上面配置的参数来执行自己的业务逻辑了。
 
 ## 源码分析
-### 包目录结构
-guava-retrying包目录结构如下：主要包含7个接口类，和
+### 目录结构
+guava-retrying包目录结构如下：主要包含2个核心类、7个功能接口以及这7个接口对应的默认实现类。
 
 <img src="https://github.com/jingyuchenxi/blog/blob/master/resource/hie.png?raw=true" width="230px" height="250px"/>
 
-### 核心类
-* Retryer
+### 相关类和接口
 
-* RetryerBuilder
+###### 核心类
+* Retryer 重试的核心类，类中的call方法实现了整个重试过程。
 
-### 功能接口
-* Attempt
+* RetryerBuilder 主要用来创建一个Retryer对象，也就是说Retryer对象不是通过自身的构造方法来创建的。
+
+###### 功能接口
+* Attempt 对Retryer.call方法的
     
 * AttemptTimeLimiter
 
@@ -85,7 +87,7 @@ guava-retrying包目录结构如下：主要包含7个接口类，和
 
 * RetryListener
 
-### 功能实现类
+###### 功能实现类
 * AttemptTimeLimiters
 
 * BlockStrategies
